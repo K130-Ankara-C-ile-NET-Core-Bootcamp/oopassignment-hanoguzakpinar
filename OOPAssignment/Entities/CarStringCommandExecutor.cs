@@ -1,4 +1,6 @@
+using System;
 using OOPAssignment.Interfaces;
+using OOPAssignment.Structs;
 
 namespace OOPAssignment.Entities
 {
@@ -9,7 +11,29 @@ namespace OOPAssignment.Entities
         }
         public void ExecuteCommand(string commandObject)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(commandObject))
+                throw new Exception("Komutlarda hata var.");
+            //Komutlarý ayýrýp,diziye atma
+            char[] commands = commandObject.ToCharArray();
+
+            for (int i = 0; i < commands.Length; i++)
+            {
+                switch (commands[i])
+                {
+                    case 'L':
+                        CarCommand.TurnLeft();//Sol
+                        break;
+                    case 'R':
+                        CarCommand.TurnRight();//Sað
+                        break;
+                    case 'M':
+                        MovementFactor mF = new();//Ýleri
+                        CarCommand.Move(mF);
+                        break;
+                    default:
+                        throw new Exception("Komutlarda hata var.");
+                }
+            }
         }
     }
 }
